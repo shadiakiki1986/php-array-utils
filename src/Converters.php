@@ -1,6 +1,6 @@
 <?php
 
-namespace theodorejb\ArrayUtils;
+namespace shadiakiki1986\ArrayUtils;
 
 class Converters {
 
