@@ -5,6 +5,8 @@
 My fork
 [![Build Status](https://travis-ci.org/shadiakiki1986/array-utils.svg?branch=master)](https://travis-ci.org/shadiakiki1986/array-utils)
 
+To test array-to-xlsx dumper, `apt-get install php-zip`
+
 
 ArrayUtils is a collection of useful PHP array functions.
 

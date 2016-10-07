@@ -1,11 +1,15 @@
 {
-    "name": "theodorejb/array-utils",
+    "name": "shadiakiki1986/array-utils",
     "description": "Useful functions for working with arrays",
     "license": "MIT",
     "authors": [
         {
             "name": "Theodore Brown",
             "email": "theodorejb@outlook.com"
+        },
+        {
+            "name": "Shadi Akiki",
+            "email": "shadiakiki1986@gmail.com"
         }
     ],
     "require": {
@@ -15,16 +19,21 @@
     "require-dev": {
         "phpmd/phpmd": "^2.4",
         "squizlabs/php_codesniffer": "^2.7",
-        "phpunit/phpunit": "^5.6"
+        "phpunit/phpunit": "^5.6",
+        "PHPOffice/PHPExcel": "^1.8",
+        "ext-zip": "*"
     },
     "autoload": {
-        "files": ["src/ArrayUtils.php"]
+        "files": ["src/ArrayUtils.php","src/Converters.php","src/CellCounterManager.php"]
+    },
+    "suggest": {
+        "PHPOffice/PHPExcel": "To use the array-to-xlsx dumper"
     },
     "scripts": {
         "test": [
             "parallel-lint . --exclude vendor",
-            "phpmd . text cleancode,codesize,controversial,design,naming,unusedcode --exclude data,puphpet,vendor",
-            "phpcs --standard=PSR2 --ignore=vendor/* -np --report=full .",
+            "phpmd . text cleancode,codesize,controversial,design,naming,unusedcode --exclude data,puphpet,vendor,src/Converters.php,test/ConvertersTest.php,src/CellCounterManager.php,test/CellCounterManagerTest.php",
+            "phpcs --standard=PSR2 --ignore=vendor/*,src/Converters.php,test/ConvertersTest.php,src/CellCounterManager.php,test/CellCounterManagerTest.php -np --report=full .",
             "phpunit --verbose"
         ]
     }
