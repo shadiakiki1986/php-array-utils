@@ -108,10 +108,11 @@ var_dump(Converters::array3d2xlsx(array("people-pets"=>$peoplePets))); // return
 For excel dates in the cells, use the \DateTime class for the php values, e.g.
 ```
 $people = [
-    ['name' => 'Roula', 'dateOfBirth' => \DateTime::createFromFormat('Y-m-d','1982-10-05')],
-    ['name' => 'Shadi', 'dateOfBirth' => \DateTime::createFromFormat('Y-m-d','1986-09-22')]
+    ['name' => 'Roula', 'dateOfBirth' => \DateTime::createFromFormat('!Y-m-d','1982-10-05')],
+    ['name' => 'Shadi', 'dateOfBirth' => \DateTime::createFromFormat('!Y-m-d','1986-09-22')]
 ];
 ```
+Note the `!` preceding `Y-m-d` above resets the hours/minutes/seconds to 0 so that they don't show up in the excel data autofilter
 
 ### array2console
 
