@@ -2,7 +2,7 @@
 
 ArrayUtils is a collection of useful PHP array functions.
 
-[![Build Status](https://travis-ci.org/shadiakiki1986/array-utils.svg?branch=master)](https://travis-ci.org/shadiakiki1986/array-utils)
+[![Build Status](https://travis-ci.org/shadiakiki1986/php-array-utils.svg?branch=master)](https://travis-ci.org/shadiakiki1986/php-array-utils)
 [Packagist](https://packagist.org/packages/shadiakiki1986/array-utils)
 
 
