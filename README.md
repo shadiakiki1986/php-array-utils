@@ -112,7 +112,8 @@ $people = [
     ['name' => 'Shadi', 'dateOfBirth' => \DateTime::createFromFormat('!Y-m-d','1986-09-22')]
 ];
 ```
-Note the `!` preceding `Y-m-d` above resets the hours/minutes/seconds to 0 so that they don't show up in the excel data autofilter
+Note the `!` preceding `Y-m-d` above resets the hours/minutes/seconds to 0 so that they don't show up in the excel data autofilter.
+Check the docs for [DateTime::createFromFormat](http://php.net/manual/en/datetime.createfromformat.php) for more details.
 
 ### array2console
 
