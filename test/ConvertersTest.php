@@ -24,16 +24,15 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($expected,$actual);
     }
 
+   /**
+    * @requires extension zip
+    */
     public function testArray2Xlsx() {
+        $this->markTestIncomplete("it seems that PHPExcel saves a timestamp in the xlsx file, hence making me unable to replicate generating the file");
+
         $actual = Converters::array3d2xlsx(array("table"=>$this->table));
         $expected = __DIR__."/fixtures/array2xlsx.xlsx";
-
-        // TODO it seems that PHPExcel saves a timestamp in the xlsx file, 
-        // hence making me unable to replicate generating the file, 
-        // and thus requiring me to keep the copy line here, 
-        // rendering this test useless
-        copy($actual,$expected); 
-
+        // copy($actual,$expected);
         $this->assertFileEquals($expected,$actual);
     }
 
