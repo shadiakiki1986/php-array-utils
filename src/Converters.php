@@ -101,14 +101,22 @@ class Converters {
 
   }
 
+  /**
+   *  Convert array of arrays of rows to Excel 2007 xlsx file
+   *
+   *  If a field is of type \DateTime, it becomes an excel date in the cell (and hence when you filter on the column, you get the year/month breakdown)
+   *
+   *  Example:
+   *    array3d2xlsx(
+   *      array(
+   *        array(array(1,2,3),array(4,5,6)),
+   *        array(array(1,2,3),array(4,5,6)),
+   *        array(array(1,2,3),array(4,5,6))
+   *      )
+   *    )
+  **/
+
   public static function array3d2xlsx($arr3d) {
-  /*
-  var_dump(array3d2xlsx(array(
-    array(array(1,2,3),array(4,5,6)),
-    array(array(1,2,3),array(4,5,6)),
-    array(array(1,2,3),array(4,5,6))
-  )));
-  */
 
     array_map(function($row) {
       if(!is_array($row)) throw new \Exception("Only arrays of arrays of arrays supported");
@@ -146,6 +154,7 @@ class Converters {
     $objPHPExcel = new \PHPExcel();
     $objPHPExcel->removeSheetByIndex(0);
 
+    // populate
     for($i=0;$i<count($arr3d);$i++) {
       $kkk2=array_keys($arr3d);
       $kkk2=$kkk2[$i];
@@ -177,6 +186,13 @@ class Converters {
 
       foreach($arr2d as $k=>$v) {
         foreach($v as $k2=>$v2) {
+          if($v2 instanceof \DateTime) {
+            // https://github.com/PHPOffice/PHPExcel/blob/1.8/Examples/02types.php#L96
+            $v2 = \PHPExcel_Shared_Date::PHPToExcel($v2->format('U'));
+            $objPHPExcel->getActiveSheet()->getStyle($ccm->cellCurrent())->getNumberFormat()->setFormatCode(
+              \PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD2
+            );
+          }
           $objPHPExcel->getActiveSheet()->setCellValue($ccm->cellCurrent(), $v2);
           $ccm->cellIncrement(true,false);
         }

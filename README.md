@@ -105,6 +105,14 @@ $peoplePets = [
 var_dump(Converters::array3d2xlsx(array("people-pets"=>$peoplePets))); // returns path to xlsx filename in temporary directory
 ```
 
+For excel dates in the cells, use the \DateTime class for the php values, e.g.
+```
+$people = [
+    ['name' => 'Roula', 'dateOfBirth' => \DateTime::createFromFormat('Y-m-d','1982-10-05')],
+    ['name' => 'Shadi', 'dateOfBirth' => \DateTime::createFromFormat('Y-m-d','1986-09-22')]
+];
+```
+
 ### array2console
 
 Dumps a 3d array to a string in tabular format for viewing in the console

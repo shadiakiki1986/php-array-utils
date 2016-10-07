@@ -28,11 +28,42 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase {
     * @requires extension zip
     */
     public function testArray2Xlsx() {
-        $this->markTestIncomplete("it seems that PHPExcel saves a timestamp in the xlsx file, hence making me unable to replicate generating the file");
+        $this->markTestIncomplete("it seems that PHPExcel saves a UID in the binary xlsx file each time, hence making me unable to replicate generating the file");
 
-        $actual = Converters::array3d2xlsx(array("table"=>$this->table));
+        $actual = Converters::array3d2xlsx(
+          array("table"=>$this->table)
+          , $this->s2d("2015-01-01")
+        );
         $expected = __DIR__."/fixtures/array2xlsx.xlsx";
         // copy($actual,$expected);
+        $this->assertFileEquals($expected,$actual);
+    }
+
+
+    // utility function
+    private function s2d($x) {
+      return \DateTime::createFromFormat("Y-m-d",$x);
+    }
+
+   /**
+    * @requires extension zip
+    */
+    public function testArray2XlsxDates() {
+        $this->markTestIncomplete("it seems that PHPExcel saves a UID in the binary xlsx file each time, hence making me unable to replicate generating the file");
+
+        $tableWithDates = array(
+            array("A"=>$this->s2d("2015-01-02"),"B"=>2)
+          , array("A"=>$this->s2d("2015-01-03"),"B"=>4)
+          , array("A"=>$this->s2d("2015-01-04"),"B"=>5)
+          , array("A"=>$this->s2d("2015-02-03"),"B"=>6)
+        );
+
+        $actual = Converters::array3d2xlsx(
+          array("table"=>$tableWithDates)
+          , $this->s2d("2015-01-01")
+        );
+        $expected = __DIR__."/fixtures/array2xlsxWithDates.xlsx";
+        //copy($actual,$expected);
         $this->assertFileEquals($expected,$actual);
     }
 
