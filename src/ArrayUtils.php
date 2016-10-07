@@ -27,13 +27,13 @@ function contains_all(array $needles, array $haystack)
  * Returns true if the two arrays contain exactly the same values
  * (not necessarily in the same order)
  *
- * @param array $a
- * @param array $b
+ * @param array $ar1
+ * @param array $ar2
  * @return bool
  */
-function contains_same(array $a, array $b)
+function contains_same(array $ar1, array $ar2)
 {
-    return contains_all($a, $b) && contains_all($b, $a);
+    return contains_all($ar1, $ar2) && contains_all($ar2, $ar1);
 }
 
 /**
@@ -55,19 +55,19 @@ function group_rows($rows, $groupColumn)
     $itemSet = [];
 
     foreach ($rows as $row) {
-        if ($divideColVal !== $row[$groupColumn]) {
-            // new set of items
-
-            if (!empty($itemSet)) {
-                yield $itemSet; // yield previous set
-            }
-
-            $itemSet = [$row]; // start over
-            $divideColVal = $row[$groupColumn];
-        } else {
+        if ($divideColVal === $row[$groupColumn]) {
             // same set of items
             $itemSet[] = $row;
+            continue;
         }
+
+        // new set of items
+        if (!empty($itemSet)) {
+            yield $itemSet; // yield previous set
+        }
+
+        $itemSet = [$row]; // start over
+        $divideColVal = $row[$groupColumn];
     }
 
     if (!empty($itemSet)) {

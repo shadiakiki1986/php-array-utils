@@ -1,26 +1,26 @@
 <?php
 
-use theodorejb\ArrayUtils;
+namespace theodorejb\ArrayUtils;
 
-class ArrayUtilsTest extends PHPUnit_Framework_TestCase
+class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
 {
     public function testContainsAll()
     {
         // order shouldn't matter
-        $this->assertTrue(ArrayUtils\contains_all([1, 2], [3, 2, 1]));
+        $this->assertTrue(contains_all([1, 2], [3, 2, 1]));
 
         // types must match
-        $this->assertFalse(ArrayUtils\contains_all([1, 2], ["1", "2"]));
+        $this->assertFalse(contains_all([1, 2], ["1", "2"]));
 
-        $this->assertFalse(ArrayUtils\contains_all([1, 2], [1]));
+        $this->assertFalse(contains_all([1, 2], [1]));
     }
 
     public function testContainsSame()
     {
         // order shouldn't matter
-        $this->assertTrue(ArrayUtils\contains_same([1, 2], [2, 1]));
+        $this->assertTrue(contains_same([1, 2], [2, 1]));
 
-        $this->assertFalse(ArrayUtils\contains_same([1, 2], [3, 2, 1]));
+        $this->assertFalse(contains_same([1, 2], [3, 2, 1]));
     }
 
     public function testGroupRows()
@@ -42,7 +42,7 @@ class ArrayUtilsTest extends PHPUnit_Framework_TestCase
 
         $actual = [];
 
-        foreach (ArrayUtils\group_rows($peoplePets, 'name') as $group) {
+        foreach (group_rows($peoplePets, 'name') as $group) {
             $actual[] = $group;
         }
 
@@ -71,7 +71,7 @@ class ArrayUtilsTest extends PHPUnit_Framework_TestCase
 
         $actual = [];
 
-        foreach (ArrayUtils\group_rows($rows, 'name') as $group) {
+        foreach (group_rows($rows, 'name') as $group) {
             $actual[] = $group;
         }
 
@@ -80,8 +80,8 @@ class ArrayUtilsTest extends PHPUnit_Framework_TestCase
 
     public function testGroupRowsEmptyArray()
     {
-        foreach (ArrayUtils\group_rows([], 'test') as $group) {
-            $this->fail('Empty array incorrectly resulted in yield');
+        foreach (group_rows([], 'test') as $group) {
+            $this->fail('Empty array incorrectly resulted in yield: '.json_encode($group));
         }
     }
 
@@ -96,7 +96,7 @@ class ArrayUtilsTest extends PHPUnit_Framework_TestCase
 
         $groups = [];
 
-        foreach (ArrayUtils\group_rows($generate(), 'set') as $group) {
+        foreach (group_rows($generate(), 'set') as $group) {
             $groups[] = $group;
         }
 
