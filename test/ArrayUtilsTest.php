@@ -1,6 +1,6 @@
 <?php
 
-namespace shadiakiki1986\ArrayUtils;
+namespace theodorejb\ArrayUtils;
 
 class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
 {

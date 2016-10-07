@@ -1,6 +1,6 @@
 <?php
 
-namespace shadiakiki1986\ArrayUtils;
+namespace theodorejb\ArrayUtils;
 
 use Traversable;
 
