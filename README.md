@@ -12,7 +12,7 @@ This is a fork of [theodorejb/array-utils](https://github.com/theodorejb/array-u
 
 ## Install via Composer
 
-`composer require theodorejb/array-utils`
+`composer require shadiakiki1986/array-utils`
 
 and add bootstrap
 
