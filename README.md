@@ -84,9 +84,9 @@ $expected = [
 var_dump($grouped === $expected); // bool(true)
 ```
 
-### array2xlsx
+### array3d2xlsx
 
-Dumps array as xlsx file
+Dumps array of arrays as xlsx file, with each subarray as a sheet
 
 Requires `apt-get install php-zip` and `composer require PHPOffice/PHPExcel`
 
@@ -102,7 +102,7 @@ $peoplePets = [
     ['name' => 'Amy', 'petName' => 'Whiskers']
 ];
 
-var_dump(Converters::array2xlsx($peoplePets)); // returns path to xlsx filename in temporary directory
+var_dump(Converters::array3d2xlsx(array("people-pets"=>$peoplePets))); // returns path to xlsx filename in temporary directory
 ```
 
 ### array2console
