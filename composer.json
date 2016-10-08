@@ -24,16 +24,22 @@
         "ext-zip": "*"
     },
     "autoload": {
-        "files": ["src/ArrayUtils.php","src/Converters.php","src/CellCounterManager.php"]
+        "files": [
+            "src/ArrayUtils.php",
+            "src/Converters.php",
+            "src/Array2Xlsx.php",
+            "src/CellCounterManager.php"
+        ]
     },
     "suggest": {
-        "PHPOffice/PHPExcel": "To use the array-to-xlsx dumper"
+        "PHPOffice/PHPExcel": "To use the array-to-xlsx dumper",
+        "ext-sqlite3": "To be able to save on memory for large files"
     },
     "scripts": {
         "test": [
             "parallel-lint . --exclude vendor",
             "phpmd . text cleancode,codesize,controversial,design,naming,unusedcode --exclude data,puphpet,vendor,src/Converters.php,test/ConvertersTest.php,src/CellCounterManager.php,test/CellCounterManagerTest.php",
-            "phpcs --standard=PSR2 --ignore=vendor/*,src/Converters.php,test/ConvertersTest.php,src/CellCounterManager.php,test/CellCounterManagerTest.php -np --report=full .",
+            "phpcs --standard=PSR2 --ignore=vendor/*,test/ConvertersTest.php,src/CellCounterManager.php,src/Converters.php,test/CellCounterManagerTest.php -np --report=full .",
             "phpunit --verbose"
         ]
     }

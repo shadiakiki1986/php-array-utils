@@ -115,6 +115,11 @@ $people = [
 Note the `!` preceding `Y-m-d` above resets the hours/minutes/seconds to 0 so that they don't show up in the excel data autofilter.
 Check the docs for [DateTime::createFromFormat](http://php.net/manual/en/datetime.createfromformat.php) for more details.
 
+Memory issues:
+* for large excel files, phpexcel could run out of memory (check [here](https://github.com/PHPOffice/PHPExcel/blob/1c8c2379ccf5ab9dd7cb46be965821d22173bcf4/Documentation/markdown/Overview/04-Configuration-Settings.md))
+* Need `apt-get install sqlite3`
+* pass `true` for the `isLarge` (2nd) parameter to `array3d2xlsx`
+
 ### array2console
 
 Dumps a 3d array to a string in tabular format for viewing in the console

@@ -39,4 +39,26 @@ class CellCounterManagerTest extends \PHPUnit_Framework_TestCase {
     $this->assertTrue($cm->cellCurrent()=="AZ1");
   }
 
+    public function testMemory() {
+      $M=400;
+      $N=40;
+      $P=1000;
+
+      foreach(range(1,$M) as $i) {
+        $cm=new CellCounterManager();
+        $cm->cellReset(true,true);
+
+        foreach(range(1,$N) as $j) {
+          $cm->cellIncrement(true,false);
+          foreach(range(1,$P) as $k) {
+            $cm->cellIncrement(false,true);
+          }
+        }
+
+        $this->assertLessThan(3,floor(memory_get_usage()/1000000));
+        $this->assertLessThan(3,floor(memory_get_peak_usage()/1000000));
+      }
+    }
+
+
 }

@@ -5,26 +5,35 @@ namespace shadiakiki1986\ArrayUtils;
 class CellCounterManager {
 
 	// column/row counters
-	var $alphas;
-	var $counter;
+	var $alphas, $col, $row;
 
 	function __construct() {
-		$this->alphas1 = range('A', 'Z');
-    $this->alphas2 = array_map(function($x) { return "A".$x; },$this->alphas1);
-    $this->alphas=array_merge($this->alphas1,$this->alphas2);
-		$this->counter=array("col"=>0,"row"=>1);
+		$alphas1 = range('A', 'Z');
+    $alphas2 = array_map(function($x) { return "A".$x; },$alphas1);
+    $this->alphas=array_merge($alphas1,$alphas2);
+		$this->col = 0;
+    $this->row = 1;
 	}
 
-	function cellReset($c,$r) {
-		$this->counter=array(
-			"col"=>($c?0:$this->counter["col"]),
-			"row"=>($r?1:$this->counter["row"])
-		);
+	function cellReset(bool $c, bool $r) {
+		if($c) $this->col = 0;
+	  if($r) $this->row = 1;
 	}
-	function cellCurrent() { return $this->alphas[$this->counter["col"]].$this->counter["row"]; }
-	function cellIncrement($c,$r) {
-		if($c) $this->counter["col"]++;
-		if($r) $this->counter["row"]++;
+
+	function cellCurrent() {
+    return
+      $this->alphas[$this->col]
+      .$this->row;
+  }
+
+	function cellIncrement(bool $c, bool $r) {
+		if($c) {
+      if($this->col+1 > count($this->alphas)) {
+        throw new \Exception("Columns beyond ".$this->alphas[count($this->alphas)-1]." not supported");
+      }
+      $this->col++;
+    }
+		if($r) $this->row++;
 	}
 
 };

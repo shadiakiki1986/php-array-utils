@@ -30,10 +30,7 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase {
     public function testArray2Xlsx() {
         $this->markTestIncomplete("it seems that PHPExcel saves a UID in the binary xlsx file each time, hence making me unable to replicate generating the file");
 
-        $actual = Converters::array3d2xlsx(
-          array("table"=>$this->table)
-          , $this->s2d("2015-01-01")
-        );
+        $actual = Converters::array3d2xlsx(array("table"=>$this->table));
         $expected = __DIR__."/fixtures/array2xlsx.xlsx";
         // copy($actual,$expected);
         $this->assertFileEquals($expected,$actual);
@@ -58,13 +55,47 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase {
           , array("A"=>$this->s2d("2015-02-03"),"B"=>6)
         );
 
-        $actual = Converters::array3d2xlsx(
-          array("table"=>$tableWithDates)
-          , $this->s2d("2015-01-01")
-        );
+        $actual = Converters::array3d2xlsx(array("table"=>$tableWithDates));
         $expected = __DIR__."/fixtures/array2xlsxWithDates.xlsx";
         //copy($actual,$expected);
         $this->assertFileEquals($expected,$actual);
+    }
+
+   /**
+    * @requires extension zip
+    */
+    public function testArray2XlsxMemory() {
+      $M=40;
+      $N=1000;
+      $P=10;
+
+      // generate M x N table
+      $data = array();
+      foreach(range(1,$N) as $i) {
+        array_push(
+          $data,
+          range(1,$M)
+        );
+      }
+
+      // generate xlsx file P times
+      foreach(range(1,$P) as $i) {
+        Converters::array3d2xlsx(array("table"=>$data),true);
+
+#        // use fwrite instead of echo for instant output
+#        fwrite(
+#          STDOUT, 
+#          $i
+#          ." : "
+#          .floor(memory_get_usage()/1000000)
+#          ." / "
+#          .floor(memory_get_peak_usage()/1000000)
+#          ."\n"
+#        );
+
+       #  $this->assertLessThan(20,floor(memory_get_usage()/1000000));
+        $this->assertLessThan(40,floor(memory_get_peak_usage()/1000000));
+      }
     }
 
     // http://stackoverflow.com/a/3423692
@@ -111,7 +142,7 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase {
           $expected
         )
       );
-      $actual = Converters::array_transpose($foo);
+      $actual = Converters::arrayTranspose($foo);
       $this->assertEquals($expected,$actual);
     }
 
