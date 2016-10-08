@@ -12,7 +12,8 @@ matrix:
   - hhvm
 
 install:
-  - composer install
+  # note ignore platform requests below for this: https://github.com/composer/composer/issues/4976
+  - composer install --ignore-platform-reqs
 
 script:
 - composer run-script test
