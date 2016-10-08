@@ -28,14 +28,20 @@ class Array2Xlsx
         $this->ccm=new CellCounterManager();
     }
 
-    // for large files
-    // https://github.com/PHPOffice/PHPExcel/blob/1c8c2379ccf5ab9dd7cb46be965821d22173bcf4/Documentation/markdown/Overview/04-Configuration-Settings.md
-    // https://github.com/PHPOffice/PHPExcel/blob/1.8/Examples/06largescale-with-cellcaching.php
-    public function isLarge() {
+    /**
+     * for large files
+     *
+     * https://github.com/PHPOffice/PHPExcel/blob/1c8c2379ccf5ab9dd7cb46be965821d22173bcf4/Documentation/markdown/Overview/04-Configuration-Settings.md
+     * https://github.com/PHPOffice/PHPExcel/blob/1.8/Examples/06largescale-with-cellcaching.php
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function isLarge()
+    {
         //$cacheMethod = \PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip;
         $cacheMethod = \PHPExcel_CachedObjectStorageFactory::cache_to_sqlite3;
         if (!\PHPExcel_Settings::setCacheStorageMethod($cacheMethod)) {
-          die($cacheMethod . " caching method is not available" . PHP_EOL);
+            throw new \Exception($cacheMethod . " caching method is not available");
         }
     }
 
