@@ -55,8 +55,8 @@ class CellCounterManagerTest extends \PHPUnit_Framework_TestCase {
           }
         }
 
-        $this->assertLessThan(3,floor(memory_get_usage()/1000000));
-        $this->assertLessThan(3,floor(memory_get_peak_usage()/1000000));
+        $this->assertLessThan(4,floor(memory_get_usage()/1000000));
+        $this->assertLessThan(4,floor(memory_get_peak_usage()/1000000));
       }
     }
 
