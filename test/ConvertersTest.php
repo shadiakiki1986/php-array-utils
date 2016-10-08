@@ -62,6 +62,8 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase {
     }
 
    /**
+    * This test takes around 1.25 minutes on a 2.6 GHz CPU with 4 GB RAM running ubuntu server 16.04
+    *
     * @requires extension zip
     */
     public function testArray2XlsxMemory() {
