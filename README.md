@@ -10,6 +10,9 @@ This is a fork of [theodorejb/array-utils](https://github.com/theodorejb/array-u
 [![Packagist Version](https://img.shields.io/packagist/v/theodorejb/array-utils.svg)](https://packagist.org/packages/theodorejb/array-utils) [![License](https://img.shields.io/packagist/l/theodorejb/array-utils.svg)](https://packagist.org/packages/theodorejb/array-utils) [![Build Status](https://travis-ci.org/theodorejb/array-utils.svg?branch=master)](https://travis-ci.org/theodorejb/array-utils)
 
 
+Major changes are that I require `php>=7` for the sake of the parameter types in `CellCounterManager` functions
+
+
 ## Install via Composer
 
 `composer require shadiakiki1986/array-utils`
