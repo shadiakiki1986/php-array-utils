@@ -8,8 +8,8 @@ php:
 
 matrix:
   allow_failures:
-  - 5.6
-  - hhvm
+  - php:5.6
+  - php:hhvm
 
 install:
   # note ignore platform requests below for this: https://github.com/composer/composer/issues/4976
