@@ -42,16 +42,6 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    // utility function
-    public static function s2d($x) {
-      return \DateTime::createFromFormat("Y-m-d",$x);
-    }
-    public static function s2u($t,$l) {
-      $dom = new \DOMDocument;
-      $url = $dom->createElement('a',$t);
-      $url->setAttribute("href",$l);
-      return $url;
-    }
 
    /**
     * @requires extension zip
@@ -60,11 +50,11 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase {
         $this->markTestIncomplete("it seems that PHPExcel saves a UID in the binary xlsx file each time, hence making me unable to replicate generating the file");
 
         $tableWithDates = array(
-            array("A"=>self::s2d("2015-01-02"),"B"=>2)
-          , array("A"=>self::s2d("2015-01-03"),"B"=>4)
-          , array("A"=>self::s2d("2015-01-04"),"B"=>5)
-          , array("A"=>self::s2d("2015-02-03"),"B"=>6)
-          , array("A"=>self::s2u("link","http://www.duckduckgo.com"),"B"=>7)
+            array("A"=>Converters::s2d("2015-01-02"),"B"=>2)
+          , array("A"=>Converters::s2d("2015-01-03"),"B"=>4)
+          , array("A"=>Converters::s2d("2015-01-04"),"B"=>5)
+          , array("A"=>Converters::s2d("2015-02-03"),"B"=>6)
+          , array("A"=>Converters::s2u("link","http://www.duckduckgo.com"),"B"=>7)
         );
 
         $actual = Converters::array3d2xlsx(array("table"=>$tableWithDates));

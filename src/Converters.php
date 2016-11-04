@@ -277,4 +277,25 @@ class Converters
         array_unshift($array, null);
             return call_user_func_array('array_map', $array);
     }
+
+    /**
+     * utility function to convert string to DateTime
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public static function s2d(string $date)
+    {
+        return \DateTime::createFromFormat("!Y-m-d", $date);
+    }
+
+    /**
+     * utility function to convert string text and link to DOMElement anchor
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public static function s2u(string $text, string $link)
+    {
+        $dom = new \DOMDocument;
+        $url = $dom->createElement('a', $text);
+        $url->setAttribute("href", $link);
+        return $url;
+    }
 }
