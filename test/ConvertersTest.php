@@ -8,12 +8,17 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase {
         $this->table = array(array("A"=>1,"B"=>2),array("A"=>3,"B"=>4));
     }
 
-    public function testArray2Console() {
+    public function testArray2ConsoleNonempty() {
         $actual = Converters::array2console($this->table);
         $expected = __DIR__."/fixtures/array2console.txt";
         //file_put_contents($expected,$actual);
         $expected = file_get_contents($expected);
         $this->assertEquals($expected,$actual);
+    }
+
+    public function testArray2ConsoleEmpty() {
+        $actual = Converters::array2console([]);
+        $this->assertEquals("No data".PHP_EOL,$actual);
     }
 
     public function testArray2Html() {

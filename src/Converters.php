@@ -46,8 +46,9 @@ class Converters
     public static function array2console($arr, $caption = "", $thead = null)
     {
         if (count($arr)==0) {
-            throw new \Exception("Empty data passed to array2console");
+            return "No data".PHP_EOL;
         }
+
         $arr=array_map(
             function ($row) {
                 if (!is_array($row)) {
