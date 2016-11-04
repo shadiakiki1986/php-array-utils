@@ -32,36 +32,43 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase {
    /**
     * @requires extension zip
     */
-    public function testArray2Xlsx() {
+    public function testArray2XlsxStrings() {
         $this->markTestIncomplete("it seems that PHPExcel saves a UID in the binary xlsx file each time, hence making me unable to replicate generating the file");
 
         $actual = Converters::array3d2xlsx(array("table"=>$this->table));
-        $expected = __DIR__."/fixtures/array2xlsx.xlsx";
+        $expected = __DIR__."/fixtures/array2xlsxStrings.xlsx";
         // copy($actual,$expected);
         $this->assertFileEquals($expected,$actual);
     }
 
 
     // utility function
-    private function s2d($x) {
+    public static function s2d($x) {
       return \DateTime::createFromFormat("Y-m-d",$x);
+    }
+    public static function s2u($t,$l) {
+      $dom = new \DOMDocument;
+      $url = $dom->createElement('a',$t);
+      $url->setAttribute("href",$l);
+      return $url;
     }
 
    /**
     * @requires extension zip
     */
-    public function testArray2XlsxDates() {
+    public function testArray2XlsxMixed() {
         $this->markTestIncomplete("it seems that PHPExcel saves a UID in the binary xlsx file each time, hence making me unable to replicate generating the file");
 
         $tableWithDates = array(
-            array("A"=>$this->s2d("2015-01-02"),"B"=>2)
-          , array("A"=>$this->s2d("2015-01-03"),"B"=>4)
-          , array("A"=>$this->s2d("2015-01-04"),"B"=>5)
-          , array("A"=>$this->s2d("2015-02-03"),"B"=>6)
+            array("A"=>self::s2d("2015-01-02"),"B"=>2)
+          , array("A"=>self::s2d("2015-01-03"),"B"=>4)
+          , array("A"=>self::s2d("2015-01-04"),"B"=>5)
+          , array("A"=>self::s2d("2015-02-03"),"B"=>6)
+          , array("A"=>self::s2u("link","http://www.duckduckgo.com"),"B"=>7)
         );
 
         $actual = Converters::array3d2xlsx(array("table"=>$tableWithDates));
-        $expected = __DIR__."/fixtures/array2xlsxWithDates.xlsx";
+        $expected = __DIR__."/fixtures/array2xlsxMixed.xlsx";
         //copy($actual,$expected);
         $this->assertFileEquals($expected,$actual);
     }

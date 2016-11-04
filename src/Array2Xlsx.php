@@ -4,22 +4,6 @@ namespace shadiakiki1986\ArrayUtils;
 
 class Array2Xlsx
 {
-
-  /**
-   *  Convert array of arrays of rows to Excel 2007 xlsx file
-   *
-   *  If a field is of type \DateTime, it becomes an excel date in the cell (and hence when you filter on the column, you get the year/month breakdown)
-   *
-   *  Example:
-   *    array3d2xlsx(
-   *      array(
-   *        array(array(1,2,3),array(4,5,6)),
-   *        array(array(1,2,3),array(4,5,6)),
-   *        array(array(1,2,3),array(4,5,6))
-   *      )
-   *    )
-  **/
-
     public function __construct(array $tensor)
     {
         $this->tensor = $tensor;
@@ -154,14 +138,23 @@ class Array2Xlsx
      */
     private function addCell($cell)
     {
+        $current = $this->ccm->cellCurrent();
+
         if ($cell instanceof \DateTime) {
             // https://github.com/PHPOffice/PHPExcel/blob/1.8/Examples/02types.php#L96
             $cell = \PHPExcel_Shared_Date::PHPToExcel($cell->format('U'));
-            $this->activeSheet->getStyle($this->ccm->cellCurrent())->getNumberFormat()->setFormatCode(
+            $this->activeSheet->getStyle($current)->getNumberFormat()->setFormatCode(
                 \PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD2
             );
         }
-        $this->activeSheet->setCellValue($this->ccm->cellCurrent(), $cell);
+
+        if ($cell instanceof \DOMElement && $cell->nodeName == 'a' && $cell->hasAttribute('href')) {
+            // https://github.com/PHPOffice/PHPExcel/blob/1.8/Examples/02types.php#L154
+            $this->activeSheet->getCell($current)->getHyperlink()->setUrl($cell->getAttribute('href'));
+            $cell = $cell->nodeValue;
+        }
+
+        $this->activeSheet->setCellValue($current, $cell);
         $this->ccm->cellIncrement(true, false);
     }
 }

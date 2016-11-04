@@ -147,21 +147,22 @@ class Converters
     }
 
     /**
-   *  Convert array of arrays of rows to Excel 2007 xlsx file
-   *
-   *  If a field is of type \DateTime, it becomes an excel date in the cell (and hence when you filter on the column, you get the year/month breakdown)
-   *
-   * For large excel files that may trigger large memory consumption by PHPExcel, pass `true` as the 2nd parameter. This uses the sqlite3 cache, as documented [here](https://github.com/PHPOffice/PHPExcel/blob/1c8c2379ccf5ab9dd7cb46be965821d22173bcf4/Documentation/markdown/Overview/04-Configuration-Settings.md)
-   *
-   *  Example:
-   *    array3d2xlsx(
-   *      array(
-   *        array(array(1,2,3),array(4,5,6)),
-   *        array(array(1,2,3),array(4,5,6)),
-   *        array(array(1,2,3),array(4,5,6))
-   *      )
-   *    )
-   */
+     *  Convert array of arrays of rows to Excel 2007 xlsx file
+     *
+     *  If a field is of type \DateTime, it becomes an excel date in the cell (and hence when you filter on the column, you get the year/month breakdown)
+     *  If a field is of type \DOMElement with nodeName a and has attribute href, then it gets converted to a formula with "HYPERLINK"
+     *
+     * For large excel files that may trigger large memory consumption by PHPExcel, pass `true` as the 2nd parameter. This uses the sqlite3 cache, as documented [here](https://github.com/PHPOffice/PHPExcel/blob/1c8c2379ccf5ab9dd7cb46be965821d22173bcf4/Documentation/markdown/Overview/04-Configuration-Settings.md)
+     *
+     *  Example:
+     *    array3d2xlsx(
+     *      array(
+     *        array(array(1,2,3),array(4,5,6)),
+     *        array(array(1,2,3),array(4,5,6)),
+     *        array(array(1,2,3),array(4,5,6))
+     *      )
+     *    )
+     */
     public static function array3d2xlsx($arr3d, $isLarge = false)
     {
         $a2x = new Array2Xlsx($arr3d);
