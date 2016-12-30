@@ -7,8 +7,8 @@ use Traversable;
 /**
  * Returns true if all the needles are in the haystack
  *
- * @param array $needles
- * @param array $haystack
+ * @param  array $needles
+ * @param  array $haystack
  * @return bool
  */
 function contains_all(array $needles, array $haystack)
@@ -27,8 +27,8 @@ function contains_all(array $needles, array $haystack)
  * Returns true if the two arrays contain exactly the same values
  * (not necessarily in the same order)
  *
- * @param array $ar1
- * @param array $ar2
+ * @param  array $ar1
+ * @param  array $ar2
  * @return bool
  */
 function contains_same(array $ar1, array $ar2)
@@ -40,8 +40,8 @@ function contains_same(array $ar1, array $ar2)
  * Splits the array of rows into groups when the specified column value changes.
  * Note that the rows must be sorted by the column used to divide results.
  *
- * @param array | Traversable $rows
- * @param string $groupColumn
+ * @param  array | Traversable $rows
+ * @param  string              $groupColumn
  * @return \Iterator
  * @throws \Exception if $rows is not an array or Traversable
  */
@@ -78,8 +78,8 @@ function group_rows($rows, $groupColumn)
 /**
  * Rounds all floats in an array using http://php.net/manual/en/function.round.php.
  *
- * @param array | Traversable $rows
- * @param int $precision
+ * @param  array | Traversable $rows
+ * @param  int                 $precision
  * @return \Iterator
  * @throws \Exception if $rows is not an array or Traversable
  */
@@ -90,15 +90,15 @@ function array_round(array $rows, int $precision)
     }
 
     return array_map(
-      function($row) use($precision) {
-        if(is_array($row)) {
-          return array_round($row,$precision);
-        }
-        if(is_float($row)) {
-          return round($row,$precision);
-        }
-        return $row;
-      },
-      $rows
+        function ($row) use ($precision) {
+            if (is_array($row)) {
+                return array_round($row, $precision);
+            }
+            if (is_float($row)) {
+                return round($row, $precision);
+            }
+            return $row;
+        },
+        $rows
     );
 }

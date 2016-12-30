@@ -166,7 +166,8 @@ class Converters
     public static function array3d2xlsx($arr3d, $isLarge = false)
     {
         $a2x = new Array2Xlsx($arr3d);
-        if($isLarge) $a2x->isLarge();
+        if($isLarge) { $a2x->isLarge();
+        }
         $objPHPExcel = $a2x->generate();
 
         // save to file
@@ -280,6 +281,7 @@ class Converters
 
     /**
      * utility function to convert string to DateTime
+     *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public static function s2d(string $date)
@@ -289,6 +291,7 @@ class Converters
 
     /**
      * utility function to convert string text and link to DOMElement anchor
+     *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public static function s2u(string $text, string $link)

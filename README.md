@@ -171,3 +171,6 @@ Shadi Akiki
 ## License
 
 MIT
+
+## Dev notes
+If `phpcs` reports errors that can be fixed automatically, run `vendor/bin/phpcbf src/` and then commit the changes
