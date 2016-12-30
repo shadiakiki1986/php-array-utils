@@ -113,4 +113,30 @@ class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($expected, $groups);
     }
+
+    public function testArrayRound()
+    {
+        // an array of mixed values
+        $peoplePets = [
+            ['name' => 'Jack', 'petName' => 'Scruffy', 'bones'=>10.01234],
+            ['name' => 'Jack', 'petName' => 'Spot', 'bones'=>10.1923],
+            ['name' => 'Jack', 'petName' => 'Paws', 'bones'=>10.1999]
+        ];
+
+        // the expected array grouped by name
+        $expected = [
+            array_merge($peoplePets[0], ['bones'=>10.01]),
+            array_merge($peoplePets[1], ['bones'=>10.19]),
+            array_merge($peoplePets[2], ['bones'=>10.20])
+        ];
+
+        $actual = [];
+
+        foreach (array_round($peoplePets, 2) as $group) {
+            $actual[] = $group;
+        }
+
+        $this->assertSame($expected, $actual);
+    }
+
 }

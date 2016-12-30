@@ -74,3 +74,31 @@ function group_rows($rows, $groupColumn)
         yield $itemSet;
     }
 }
+
+/**
+ * Rounds all floats in an array using http://php.net/manual/en/function.round.php.
+ *
+ * @param array | Traversable $rows
+ * @param int $precision
+ * @return \Iterator
+ * @throws \Exception if $rows is not an array or Traversable
+ */
+function array_round(array $rows, int $precision)
+{
+    if (!is_array($rows) && !$rows instanceof Traversable) {
+        throw new \Exception('$rows must be array or Traversable');
+    }
+
+    return array_map(
+      function($row) use($precision) {
+        if(is_array($row)) {
+          return array_round($row,$precision);
+        }
+        if(is_float($row)) {
+          return round($row,$precision);
+        }
+        return $row;
+      },
+      $rows
+    );
+}
