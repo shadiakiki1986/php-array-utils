@@ -102,7 +102,8 @@ class Array2Xlsx
         $matrix=$this->tensor[$kkk2];
 
         // Create a new worksheet called “My Data”
-        $myWorkSheet = new \PHPExcel_Worksheet($this->objPHPExcel, $kkk2);
+        $sheetname = is_numeric($kkk2)?'sheet '.$kkk2:$kkk2;
+        $myWorkSheet = new \PHPExcel_Worksheet($this->objPHPExcel, $sheetname);
         $this->objPHPExcel->addSheet($myWorkSheet);// Attach the “My Data” worksheet as the first worksheet in the PHPExcel object
 
         $this->objPHPExcel->setActiveSheetIndex($index);

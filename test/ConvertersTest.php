@@ -128,6 +128,12 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    // will not fail if there are no string keys in the 3d array
+    public function testArray2XlsxNoSheetName()
+    {
+      Converters::array3d2xlsx([$this->table], true);
+    }
+
     // http://stackoverflow.com/a/3423692
     public function testArrayTranspose()
     {
