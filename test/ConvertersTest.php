@@ -5,12 +5,12 @@ namespace shadiakiki1986\ArrayUtils;
 class ConverterstTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function setUp() 
+    public function setUp()
     {
         $this->table = array(array("A"=>1,"B"=>2),array("A"=>3,"B"=>4));
     }
 
-    public function testArray2ConsoleNonempty() 
+    public function testArray2ConsoleNonempty()
     {
         $actual = Converters::array2console($this->table);
         $expected = __DIR__."/fixtures/array2console.txt";
@@ -19,25 +19,43 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testArray2ConsoleEmpty() 
+    public function testArray2ConsoleEmpty()
     {
         $actual = Converters::array2console([]);
         $this->assertEquals("No data".PHP_EOL, $actual);
     }
 
-    public function testArray2Html() 
+    public function testArray2HtmlOk()
     {
         $actual = Converters::array2html($this->table);
         $expected = __DIR__."/fixtures/array2html.html";
         //file_put_contents($expected,$actual);
         $expected = file_get_contents($expected);
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected,$actual);
     }
+
+  public function testArray2HtmlFailNotA2d() {
+    try {
+      var_dump(Converters::array2html(array(4,5,6)));
+      $this->assertTrue(false); // shouldn't get here
+    } catch(\Exception $e) {
+      $this->assertTrue($e->getMessage()=="Only arrays of arrays supported");
+    }
+  }
+
+  public function testArray2htmlUrls() {
+    $data=array(
+      array("name"=>"bla","nav"=>2,"url"=>"http://test"),
+      array("name"=>"bli","nav"=>3,"url"=>"http://test")
+    );
+    $o=Converters::array2html($data,"",array(),array(),null,array("nav"=>"url"));
+    //var_dump($o);
+  }
 
     /**
     * @requires extension zip
     */
-    public function testArray2XlsxStrings() 
+    public function testArray2XlsxStrings()
     {
         $this->markTestIncomplete("it seems that PHPExcel saves a UID in the binary xlsx file each time, hence making me unable to replicate generating the file");
 
@@ -52,7 +70,7 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase
     /**
     * @requires extension zip
     */
-    public function testArray2XlsxMixed() 
+    public function testArray2XlsxMixed()
     {
         $this->markTestIncomplete("it seems that PHPExcel saves a UID in the binary xlsx file each time, hence making me unable to replicate generating the file");
 
@@ -75,7 +93,7 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase
     *
     * @requires extension zip
     */
-    public function testArray2XlsxMemory() 
+    public function testArray2XlsxMemory()
     {
         $M=40;
         $N=1000;
@@ -96,7 +114,7 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase
 
             // // use fwrite instead of echo for instant output
             // fwrite(
-            // STDOUT, 
+            // STDOUT,
             // $i
             // ." : "
             // .floor(memory_get_usage()/1000000)
@@ -111,24 +129,24 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase
     }
 
     // http://stackoverflow.com/a/3423692
-    public function testArrayTranspose() 
+    public function testArrayTranspose()
     {
         // Start with this array
         $foo = array(
         'a' => array(
            1 => 'a1',
            2 => 'a2',
-           3 => 'a3' 
+           3 => 'a3'
         ),
         'b' => array(
            1 => 'b1',
            2 => 'b2',
-           3 => 'b3' 
+           3 => 'b3'
         ),
         'c' => array(
            1 => 'c1',
            2 => 'c2',
-           3 => 'c3' 
+           3 => 'c3'
         )
         );
         $expected = array(
@@ -152,7 +170,7 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase
         $expected = array_values(
             array_map(
                 function ($row) {
-                    return array_values($row); 
+                    return array_values($row);
                 },
                 $expected
             )
