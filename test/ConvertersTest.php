@@ -25,6 +25,14 @@ class ConverterstTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("No data".PHP_EOL, $actual);
     }
 
+    public function testArray2ConsoleDateTimeDoesntFail()
+    {
+        $actual = Converters::array2console([
+          [\DateTime::createFromFormat('Y-m-d','2014-05-06')]
+        ]);
+        $this->assertEquals(1,1); // just assert no exception
+    }
+
     public function testArray2HtmlOk()
     {
         $actual = Converters::array2html($this->table);

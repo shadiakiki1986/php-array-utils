@@ -89,6 +89,10 @@ class Converters
                 if (!array_key_exists($j+1, $colWidths)) {
                     $colWidths[$j+1]=0;
                 }
+
+                if($cell instanceof \DateTime) {
+                  $cell=$cell->format('Y-m-d ...');
+                }
                 $colWidths[$j+1] = max($colWidths[$j+1], strlen($cell));
             }
         }
@@ -117,6 +121,9 @@ class Converters
             $row = array_values($arr[$i]);
             $body[$i][0] = sprintf($colFormats[0]." | ", $rowKeys[$i]);
             for ($j=0; $j<count($row); $j++) {
+                if($row[$j] instanceof \DateTime) {
+                  $row[$j] = $row[$j]->format('Y-m-d ..');
+                }
                 $body[$i][$j+1] = sprintf($colFormats[$j+1], is_array($row[$j])?self::arr2json($row[$j]):$row[$j]);
             }
         }
